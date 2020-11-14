@@ -5,74 +5,54 @@ import javax.persistence.*;
 
 @Entity
 public class Car {
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Id
     @Column(name = "user_id")
     private Integer id;
-
-    /*@OneToOne(mappedBy = "car")
-    private User user;*/
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+    private String brand, model, serial, pic;
 
 
-
-    public Car(){
-
-
-
+    public Car() {
 
     }
-
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    private String brand;
-    private String model;
-    private String serial;
-    private String pic;
-
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
-
-
-
 
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public String getModel() {
-        return model;
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getBrand() {
         return brand;
     }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
+    public String getModel() {
+        return model;
+    }
+    public void setModel(String model) {
+        this.model = model;
+    }
 
-
+    public String getSerial() {
+        return serial;
+    }
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
 }

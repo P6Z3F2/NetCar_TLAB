@@ -22,12 +22,19 @@ public class MainController {
 	public @ResponseBody String addNewUser (@RequestBody User user) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
+		List<User> users = userRepository.findAll();
+
+		for (User u : users) {
+			if (u.getEmail().equals(user.getEmail()))
+				return "EMAIL_ALREADY_USED";
+		}
 
 		Car c = new Car();
 		c.setUser(user);
+
 		userRepository.save(user);
 		carRepository.save(c);
-		return "Saved";
+		return "SUCCESSFUL_REGISTRATION";
 	}
 
 	@GetMapping(path="/getAllUsers")
@@ -39,8 +46,6 @@ public class MainController {
 	@GetMapping(path = "/getUser/{id}")
 	public  @ResponseBody  Optional<User> getUserById(@PathVariable(value = "id") Integer UserId)
 	{
-		//Optional<User> user = userRepository.findById(UserId);
-
 		//	.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
 		return userRepository.findById(UserId);
 	}
@@ -57,9 +62,10 @@ public class MainController {
 		user.setEmail(param.getEmail());
 		user.setName(param.getName());
 		user.setPassword(param.getPassword());
+		user.setPictureUrl(param.getPictureUrl());
 		userRepository.save(user);
 
-		return "updated";
+		return "USER_SUCCESSFUL_UPDATED";
 	}
 
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
