@@ -18,6 +18,6 @@ public class AccessingDataMysqlApplication {
 class HelloController{
 	@GetMapping("/")
 	public String hello() {
-		return "Hello app engine.";
+		return "Hello Heroku.";
 	}
 }
