@@ -2,7 +2,7 @@ package com.example.accessingdatamysql;
 
 import javax.persistence.*;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity (name = "user_entity") // This tells Hibernate to make a table out of this class
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
