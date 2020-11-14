@@ -49,7 +49,11 @@ public class User {
 	}
 
 	private String password; // majd lesz titkosítás is.
-	//private String pfp;
+
+    public void setPassword(String password) {
+    	this.password = password;
+    }
+    //private String pfp;
 	//private String pos; // egyelőre string.
 
 

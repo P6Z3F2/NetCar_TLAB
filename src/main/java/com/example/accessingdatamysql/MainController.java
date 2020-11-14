@@ -52,9 +52,6 @@ public class MainController {
 		return "Saved";
 	}
 
-
-
-
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users
@@ -82,12 +79,10 @@ public class MainController {
 		User user = userRepository.findById(id).get();
 		user.setEmail(param.getEmail());
 		user.setName(param.getName());
+		user.setPassword(param.getPassword());
 		userRepository.save(user);
 
 		return "updated";
-
-
-
 	}
 
 	@RequestMapping(value="/users/delete/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
@@ -95,17 +90,7 @@ public class MainController {
 		Optional<User> OptionalUser = userRepository.findById(id);
 		User user = OptionalUser.get();
 		userRepository.delete(user);
-
-
 	}
-
-
-
-
-
-
-
-
 
 	@PostMapping(path="/login")
 	public @ResponseBody String Login (@RequestParam String email, @RequestParam String password) {
@@ -156,8 +141,6 @@ public class MainController {
 		return "Updated car with id: " +  id;
 	}
 
-
-
 	//DELETE CAR
 	@PutMapping(path = "/users/{id}/deletecar")
 	public @ResponseBody String deleteCar(@PathVariable(value = "id") Integer id){
@@ -167,13 +150,4 @@ public class MainController {
 
 		return "deleted car with id: " +  id;
 	}
-
-
-
-
-
-
-
-
-
 }
