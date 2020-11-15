@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller	// This means that this class is a Controller
+@CrossOrigin
 @RequestMapping
 public class MainController {
 	@Autowired // This means to get the bean called userRepository
