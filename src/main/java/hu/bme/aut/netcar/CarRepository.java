@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql;
+package hu.bme.aut.netcar;
 
 import org.springframework.data.repository.CrudRepository;
 

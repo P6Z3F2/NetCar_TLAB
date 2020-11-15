@@ -1,13 +1,10 @@
-package com.example.accessingdatamysql;
+package hu.bme.aut.netcar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +20,15 @@ public class MainController {
 
 
 	@PostMapping(path="/addUser") // Map ONLY POST Requests
-	public @ResponseBody StringResponse addNewUser (@RequestBody User user) {
+	public @ResponseBody
+	DefaultResponse addNewUser (@RequestBody User user) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		List<User> users = userRepository.findAll();
 
 		for (User u : users) {
 			if (u.getEmail().equals(user.getEmail()))
-				return new StringResponse("EMAIL_ALREADY_USED");
+				return new DefaultResponse("EMAIL_ALREADY_USED");
 		}
 
 		Car c = new Car();
@@ -38,7 +36,7 @@ public class MainController {
 
 		userRepository.save(user);
 		carRepository.save(c);
-		return new StringResponse("SUCCESSFUL_REGISTRATION");
+		return new DefaultResponse("SUCCESSFUL_REGISTRATION");
 	}
 
 	@GetMapping(path="/getAllUsers")
@@ -60,8 +58,9 @@ public class MainController {
 	}
 
 	@PutMapping(value = "/updateUser/{id}", produces = "application/json")
-	public @ResponseBody StringResponse updateUser(@PathVariable(value = "id") Integer id,
-										   @RequestBody User param){
+	public @ResponseBody
+	DefaultResponse updateUser(@PathVariable(value = "id") Integer id,
+							   @RequestBody User param){
 		User user = userRepository.findById(id).get();
 		user.setEmail(param.getEmail());
 		user.setName(param.getName());
@@ -69,31 +68,33 @@ public class MainController {
 		user.setPictureUrl(param.getPictureUrl());
 		userRepository.save(user);
 
-		return new StringResponse("USER_SUCCESSFUL_UPDATED");
+		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
 		//return new Collections.singleton("response");
 	}
 
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
-	public @ResponseBody StringResponse deleteUser(@PathVariable(value = "id") Integer id){
+	public @ResponseBody
+	DefaultResponse deleteUser(@PathVariable(value = "id") Integer id){
 		Optional<User> OptionalUser = userRepository.findById(id);
 		User user = OptionalUser.get();
 		userRepository.delete(user);
-				return new StringResponse("deleted user with id: "+id);
+				return new DefaultResponse("deleted user with id: "+id);
 	}
 
 	@PostMapping(path="/login")
-	public @ResponseBody StringResponse Login (@RequestParam String email, @RequestParam String password) {
+	public @ResponseBody
+	DefaultResponse Login (@RequestParam String email, @RequestParam String password) {
 		List<User> list = userRepository.findAll();
 
 		// Basic authentication:
 		for (User u : list) {
 			if (u.getEmail().equals(email))
 				if (u.getPassword().equals(password))
-					return new StringResponse("SUCCESSFUL_LOGIN");
-				return new StringResponse("WRONG_PASSWORD");
+					return new DefaultResponse("SUCCESSFUL_LOGIN");
+				return new DefaultResponse("WRONG_PASSWORD");
 		}
 
-		return new StringResponse("NO_EMAIL_FOUND");
+		return new DefaultResponse("NO_EMAIL_FOUND");
 	}
 
 
@@ -115,23 +116,25 @@ public class MainController {
 	}
 	//UPDATE CAR
 	@PutMapping(path = "/getUser/{id}/updateCar")
-	public @ResponseBody StringResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
-										  @RequestParam String model,
-										  @RequestParam String serial){
+	public @ResponseBody
+	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
+							  @RequestParam String model,
+							  @RequestParam String serial){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
 		car.setSerial(serial);
 		carRepository.save(car);
 
-		return new StringResponse("Updated car with id: " +  id);
+		return new DefaultResponse("Updated car with id: " +  id);
 	}
 
 	//DELETE CAR
 	@PutMapping(path = "/getUser/{id}/deleteCar")
-	public @ResponseBody StringResponse deleteCar(@PathVariable(value = "id") Integer id){
+	public @ResponseBody
+	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
 		updateCar(id,null,null,null);
 
-		return new StringResponse("deleted car with id: " +  id);
+		return new DefaultResponse("deleted car with id: " +  id);
 	}
 }

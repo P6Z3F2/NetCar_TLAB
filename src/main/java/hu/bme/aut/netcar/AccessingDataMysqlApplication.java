@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql;
+package hu.bme.aut.netcar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,6 @@ public class AccessingDataMysqlApplication {
 		SpringApplication.run(AccessingDataMysqlApplication.class, args);
 	}
 }
-
 
 @RestController
 class HelloController{

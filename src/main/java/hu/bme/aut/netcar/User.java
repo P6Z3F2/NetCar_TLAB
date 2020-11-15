@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql;
+package hu.bme.aut.netcar;
 
 import javax.persistence.*;
 
@@ -14,6 +14,7 @@ public class User {
 	private Car car;
 
 	private String name, email, password, pictureUrl;
+	private Integer credits;
 
 
 	public User() {
@@ -53,5 +54,12 @@ public class User {
 	}
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
+	}
+
+	public Integer getCredits() {
+		return credits;
+	}
+	public void setCredits(Integer credits) {
+		this.credits = credits;
 	}
 }
