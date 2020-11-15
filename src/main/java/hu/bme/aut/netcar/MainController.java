@@ -86,12 +86,14 @@ public class MainController {
 	LoginResponse Login (@RequestParam String email, @RequestParam String password) {
 		List<User> list = userRepository.findAll();
 
-		// Basic authentication:
+		// Very simple authentication:
 		for (User u : list) {
-			if (u.getEmail().equals(email))
+			if (u.getEmail().equals(email)) {
 				if (u.getPassword().equals(password))
 					return new LoginResponse("SUCCESSFUL_LOGIN", u.getId());
-				return new LoginResponse("WRONG_PASSWORD", null);
+				else
+					return new LoginResponse("WRONG_PASSWORD", null);
+			}
 		}
 
 		return new LoginResponse("NO_EMAIL_FOUND", null);
