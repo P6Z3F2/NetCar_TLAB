@@ -23,14 +23,14 @@ public class MainController {
 
 
 	@PostMapping(path="/addUser") // Map ONLY POST Requests
-	public @ResponseBody String addNewUser (@RequestBody User user) {
+	public @ResponseBody StringResponse addNewUser (@RequestBody User user) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		List<User> users = userRepository.findAll();
 
 		for (User u : users) {
 			if (u.getEmail().equals(user.getEmail()))
-				return "EMAIL_ALREADY_USED";
+				return new StringResponse("EMAIL_ALREADY_USED");
 		}
 
 		Car c = new Car();
@@ -38,7 +38,7 @@ public class MainController {
 
 		userRepository.save(user);
 		carRepository.save(c);
-		return "SUCCESSFUL_REGISTRATION";
+		return new StringResponse("SUCCESSFUL_REGISTRATION");
 	}
 
 	@GetMapping(path="/getAllUsers")
@@ -74,25 +74,26 @@ public class MainController {
 	}
 
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
-	public @ResponseBody void deleteUser(@PathVariable(value = "id") Integer id){
+	public @ResponseBody StringResponse deleteUser(@PathVariable(value = "id") Integer id){
 		Optional<User> OptionalUser = userRepository.findById(id);
 		User user = OptionalUser.get();
 		userRepository.delete(user);
+				return new StringResponse("deleted user with id: "+id);
 	}
 
 	@PostMapping(path="/login")
-	public @ResponseBody String Login (@RequestParam String email, @RequestParam String password) {
+	public @ResponseBody StringResponse Login (@RequestParam String email, @RequestParam String password) {
 		List<User> list = userRepository.findAll();
 
 		// Basic authentication:
 		for (User u : list) {
 			if (u.getEmail().equals(email))
 				if (u.getPassword().equals(password))
-					return "SUCCESSFUL_LOGIN";
-				return "WRONG_PASSWORD";
+					return new StringResponse("SUCCESSFUL_LOGIN");
+				return new StringResponse("WRONG_PASSWORD");
 		}
 
-		return "NO_EMAIL_FOUND";
+		return new StringResponse("NO_EMAIL_FOUND");
 	}
 
 
@@ -114,7 +115,7 @@ public class MainController {
 	}
 	//UPDATE CAR
 	@PutMapping(path = "/getUser/{id}/updateCar")
-	public @ResponseBody String updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
+	public @ResponseBody StringResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
 										  @RequestParam String model,
 										  @RequestParam String serial){
 		Car car = carRepository.findById(id).get();
@@ -123,14 +124,14 @@ public class MainController {
 		car.setSerial(serial);
 		carRepository.save(car);
 
-		return "Updated car with id: " +  id;
+		return new StringResponse("Updated car with id: " +  id);
 	}
 
 	//DELETE CAR
 	@PutMapping(path = "/getUser/{id}/deleteCar")
-	public @ResponseBody String deleteCar(@PathVariable(value = "id") Integer id){
+	public @ResponseBody StringResponse deleteCar(@PathVariable(value = "id") Integer id){
 		updateCar(id,null,null,null);
 
-		return "deleted car with id: " +  id;
+		return new StringResponse("deleted car with id: " +  id);
 	}
 }
