@@ -57,7 +57,7 @@ public class MainController {
 	}
 
 	@PutMapping(value = "/updateUser/{id}")
-	public @ResponseBody String updateUser(@PathVariable(value = "id") Integer id,
+	public @ResponseBody StringResponse updateUser(@PathVariable(value = "id") Integer id,
 										   @RequestBody User param){
 		User user = userRepository.findById(id).get();
 		user.setEmail(param.getEmail());
@@ -66,7 +66,7 @@ public class MainController {
 		user.setPictureUrl(param.getPictureUrl());
 		userRepository.save(user);
 
-		return "USER_SUCCESSFUL_UPDATED";
+		return new StringResponse("USER_SUCCESSFUL_UPDATED");
 	}
 
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
