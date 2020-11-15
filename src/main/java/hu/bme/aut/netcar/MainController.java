@@ -83,18 +83,18 @@ public class MainController {
 
 	@PostMapping(path="/login")
 	public @ResponseBody
-	DefaultResponse Login (@RequestParam String email, @RequestParam String password) {
+	LoginResponse Login (@RequestParam String email, @RequestParam String password) {
 		List<User> list = userRepository.findAll();
 
 		// Basic authentication:
 		for (User u : list) {
 			if (u.getEmail().equals(email))
 				if (u.getPassword().equals(password))
-					return new DefaultResponse("SUCCESSFUL_LOGIN");
-				return new DefaultResponse("WRONG_PASSWORD");
+					return new LoginResponse("SUCCESSFUL_LOGIN", u.getId());
+				return new LoginResponse("WRONG_PASSWORD", null);
 		}
 
-		return new DefaultResponse("NO_EMAIL_FOUND");
+		return new LoginResponse("NO_EMAIL_FOUND", null);
 	}
 
 
