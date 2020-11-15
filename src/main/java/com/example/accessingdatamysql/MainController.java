@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +59,7 @@ public class MainController {
 		return userRepository.findByName(username);
 	}
 
-	@PutMapping(value = "/updateUser/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updateUser/{id}", produces = "application/json")
 	public @ResponseBody StringResponse updateUser(@PathVariable(value = "id") Integer id,
 										   @RequestBody User param){
 		User user = userRepository.findById(id).get();
@@ -68,6 +70,7 @@ public class MainController {
 		userRepository.save(user);
 
 		return new StringResponse("USER_SUCCESSFUL_UPDATED");
+		//return new Collections.singleton("response");
 	}
 
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
