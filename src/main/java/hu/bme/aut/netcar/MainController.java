@@ -66,6 +66,7 @@ public class MainController {
 		user.setName(param.getName());
 		user.setPassword(param.getPassword());
 		user.setPictureUrl(param.getPictureUrl());
+		user.setCredits(param.getCredits());
 		userRepository.save(user);
 
 		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
