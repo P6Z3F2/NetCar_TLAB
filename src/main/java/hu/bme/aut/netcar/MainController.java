@@ -73,6 +73,7 @@ public class MainController {
 		//return new Collections.singleton("response");
 	}
 
+<<<<<<< HEAD
 	@PutMapping(value = "/updateUserValidation/{id}", produces = "application/json")
 	public @ResponseBody
 	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id){
@@ -84,6 +85,8 @@ public class MainController {
 		//return new Collections.singleton("response");
 	}
 
+=======
+>>>>>>> parent of 1fdd6bc... Validation
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
 	public @ResponseBody
 	DefaultResponse deleteUser(@PathVariable(value = "id") Integer id){
