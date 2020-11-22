@@ -73,6 +73,19 @@ public class MainController {
 		//return new Collections.singleton("response");
 	}
 
+	@PutMapping(value = "/updateUserValidation/{id}", produces = "application/json")
+	public @ResponseBody
+	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id,
+										 @RequestBody User param){
+		User user = userRepository.findById(id).get();
+		user.setValid(true);
+		userRepository.save(user);
+
+		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
+		//return new Collections.singleton("response");
+	}
+
+
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
 	public @ResponseBody
 	DefaultResponse deleteUser(@PathVariable(value = "id") Integer id){
