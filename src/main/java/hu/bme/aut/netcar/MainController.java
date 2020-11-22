@@ -75,8 +75,7 @@ public class MainController {
 
 	@PutMapping(value = "/updateUserValidation/{id}", produces = "application/json")
 	public @ResponseBody
-	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id,
-										 @RequestBody User param){
+	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id){
 		User user = userRepository.findById(id).get();
 		user.setValid(true);
 		userRepository.save(user);
