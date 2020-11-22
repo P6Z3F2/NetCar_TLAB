@@ -47,15 +47,7 @@ public class MainController {
 
 	@GetMapping(path="/getAllInvalidUsers")
 	public @ResponseBody Iterable<User> getAllInvalidUsers() {
-		// This returns a JSON or XML with the users
-		List<User> lista=userRepository.findAll();
-		List<User> lista2 = null;
-		for (int i=0;i<lista.size();i++){
-			if(!lista.get(i).getValid()){
-				lista2.add(lista.get(i));
-			}
-		}
-		return lista2;
+		return userRepository.findByvalidFalse();
 	}
 
 	@GetMapping(path = "/getUser/{id}")
