@@ -155,7 +155,7 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/deleteCar")
 	public @ResponseBody
 	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
-		updateCar(id,null,null,null, null, false, null, null);
+		updateCar(id,null,null,null, null, false, 0, 0);
 
 		return new DefaultResponse("deleted car with id: " +  id);
 	}
