@@ -133,12 +133,19 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/updateCar")
 	public @ResponseBody
 	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
-							  @RequestParam String model,
-							  @RequestParam String serial){
+							  @RequestParam String model, @RequestParam String serial,
+							  @RequestParam String pic, @RequestParam Boolean hasBoot,
+							  @RequestParam Integer seats, @RequestParam Integer placeInBoot){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
 		car.setSerial(serial);
+		car.setPic(pic);
+		car.setHasBoot(hasBoot);
+		car.setSeats(seats);
+		car.setPlaceInBoot(placeInBoot);
+		car.setFreeSeats(seats);
+		car.setFreePlace(seats + placeInBoot);
 		carRepository.save(car);
 
 		return new DefaultResponse("Updated car with id: " +  id);
@@ -148,7 +155,7 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/deleteCar")
 	public @ResponseBody
 	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
-		updateCar(id,null,null,null);
+		updateCar(id,null,null,null, null, false, null, null);
 
 		return new DefaultResponse("deleted car with id: " +  id);
 	}
