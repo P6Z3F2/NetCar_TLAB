@@ -133,18 +133,19 @@ public class MainController {
 	public @ResponseBody
 	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
 							  @RequestParam String model, @RequestParam String serial,
-							  @RequestParam String picUrl, @RequestParam boolean hasBoot,
-							  @RequestParam int seat, @RequestParam int placeInBoot){
+							  @RequestParam String picUrl, @RequestParam boolean hasBoot
+							  //@RequestParam int seat, @RequestParam int placeInBoot
+	){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
 		car.setSerial(serial);
 		car.setPicUrl(picUrl);
 		car.setHasBoot(hasBoot);
-		car.setSeat(seat);
+		/*car.setSeat(seat);
 		car.setPlaceInBoot(placeInBoot);
 		car.setFreeSeat(seat);
-		car.setFreePlace(seat + placeInBoot);
+		car.setFreePlace(seat + placeInBoot);*/
 		carRepository.save(car);
 
 		return new DefaultResponse("Updated car with id: " +  id);
@@ -154,7 +155,7 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/deleteCar")
 	public @ResponseBody
 	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
-		updateCar(id,null,null,null, null, false, 0, 0);
+		updateCar(id,null,null,null, null, false);
 
 		return new DefaultResponse("deleted car with id: " +  id);
 	}
