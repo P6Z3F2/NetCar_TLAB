@@ -15,6 +15,11 @@ public class Car {
     private User user;
 
     private String brand, model, serial, picUrl;
+
+    public boolean isHasBoot() {
+        return hasBoot;
+    }
+
     boolean hasBoot;
     Integer seat, placeInBoot, freeSeat, freePlace;
 
@@ -65,7 +70,7 @@ public class Car {
         this.picUrl = picUrl;
     }
 
-    public boolean gethasBoot() {
+    public boolean getHasBoot() {
         return hasBoot;
     }
     public void setHasBoot(boolean hasBoot) {
