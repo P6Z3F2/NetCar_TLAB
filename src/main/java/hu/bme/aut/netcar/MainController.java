@@ -73,20 +73,6 @@ public class MainController {
 		//return new Collections.singleton("response");
 	}
 
-<<<<<<< HEAD
-	@PutMapping(value = "/updateUserValidation/{id}", produces = "application/json")
-	public @ResponseBody
-	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id){
-		User user = userRepository.findById(id).get();
-		user.setValid(true);
-		userRepository.save(user);
-
-		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
-		//return new Collections.singleton("response");
-	}
-
-=======
->>>>>>> parent of 1fdd6bc... Validation
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
 	public @ResponseBody
 	DefaultResponse deleteUser(@PathVariable(value = "id") Integer id){
@@ -135,20 +121,12 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/updateCar")
 	public @ResponseBody
 	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
-							  @RequestParam String model, @RequestParam String serial,
-							  @RequestParam String picUrl, @RequestParam boolean hasBoot
-							  //@RequestParam int seat, @RequestParam int placeInBoot
-	){
+							  @RequestParam String model,
+							  @RequestParam String serial){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
 		car.setSerial(serial);
-		car.setPicUrl(picUrl);
-		car.setHasBoot(hasBoot);
-		/*car.setSeat(seat);
-		car.setPlaceInBoot(placeInBoot);
-		car.setFreeSeat(seat);
-		car.setFreePlace(seat + placeInBoot);*/
 		carRepository.save(car);
 
 		return new DefaultResponse("Updated car with id: " +  id);
@@ -158,7 +136,7 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/deleteCar")
 	public @ResponseBody
 	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
-		updateCar(id,null,null,null, null, false);
+		updateCar(id,null,null,null);
 
 		return new DefaultResponse("deleted car with id: " +  id);
 	}
