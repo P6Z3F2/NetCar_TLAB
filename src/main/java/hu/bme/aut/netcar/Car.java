@@ -14,7 +14,9 @@ public class Car {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String brand, model, serial, pic;
+    private String brand, model, serial, picUrl;
+    boolean hasBoot;
+    Integer seat, placeInBoot, freeSeat, freePlace;
 
 
     public Car() {
@@ -54,5 +56,47 @@ public class Car {
     }
     public void setSerial(String serial) {
         this.serial = serial;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public boolean hasBoot() {
+        return hasBoot;
+    }
+    public void setHasBoot(boolean hasBoot) {
+        this.hasBoot = hasBoot;
+    }
+
+    public Integer getSeat() {
+        return seat;
+    }
+    public void setSeat(int seat) {
+        this.seat = seat;
+    }
+
+    public Integer getPlaceInBoot() {
+        return placeInBoot;
+    }
+    public void setPlaceInBoot(int placeInBoot) {
+        this.placeInBoot = placeInBoot;
+    }
+
+    public Integer getFreeSeat() {
+        return freeSeat;
+    }
+    public void setFreeSeat(int freeSeat) {
+        this.freeSeat = freeSeat;
+    }
+
+    public Integer getFreePlace() {
+        return freePlace;
+    }
+    public void setFreePlace(int freePlace) {
+        this.freePlace = freePlace;
     }
 }

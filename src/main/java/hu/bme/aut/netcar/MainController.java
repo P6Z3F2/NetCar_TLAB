@@ -75,8 +75,7 @@ public class MainController {
 
 	@PutMapping(value = "/updateUserValidation/{id}", produces = "application/json")
 	public @ResponseBody
-	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id,
-							   @RequestBody User param){
+	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id){
 		User user = userRepository.findById(id).get();
 		user.setValid(true);
 		userRepository.save(user);
@@ -133,12 +132,20 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/updateCar")
 	public @ResponseBody
 	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
-							  @RequestParam String model,
-							  @RequestParam String serial){
+							  @RequestParam String model, @RequestParam String serial,
+							  @RequestParam String picUrl, @RequestParam boolean hasBoot,
+							  @RequestParam Integer seat, @RequestParam Integer placeInBoot){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
 		car.setSerial(serial);
+		car.setPicUrl(picUrl);
+		car.setHasBoot(hasBoot);
+		car.setSeat(seat);
+		car.setPlaceInBoot(placeInBoot);
+		car.setFreeSeat(seat);
+		int freePlace = seat + placeInBoot;
+		car.setFreePlace(freePlace);
 		carRepository.save(car);
 
 		return new DefaultResponse("Updated car with id: " +  id);
@@ -148,7 +155,7 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/deleteCar")
 	public @ResponseBody
 	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
-		updateCar(id,null,null,null);
+		updateCar(id,null,null,null, null, false, null, null);
 
 		return new DefaultResponse("deleted car with id: " +  id);
 	}
