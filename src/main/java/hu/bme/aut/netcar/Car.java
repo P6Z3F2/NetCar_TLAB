@@ -15,6 +15,8 @@ public class Car {
     private User user;
 
     private String brand, model, serial, pic;
+    private Boolean hasBoot;
+    private Integer seats, placeInBoot, freeSeats, freePlace;
 
 
     public Car() {
@@ -54,5 +56,47 @@ public class Car {
     }
     public void setSerial(String serial) {
         this.serial = serial;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public Boolean getHasBoot() {
+        return hasBoot;
+    }
+    public void setHasBoot(Boolean hasBoot) {
+        this.hasBoot = hasBoot;
+    }
+
+    public Integer getSeats() {
+        return seats;
+    }
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
+
+    public Integer getPlaceInBoot() {
+        return placeInBoot;
+    }
+    public void setPlaceInBoot(Integer placeInBoot) {
+        this.placeInBoot = placeInBoot;
+    }
+
+    public Integer getFreeSeats() {
+        return freeSeats;
+    }
+    public void setFreeSeats(Integer freeSeats) {
+        this.freeSeats = freeSeats;
+    }
+
+    public Integer getFreePlace() {
+        return freePlace;
+    }
+    public void setFreePlace(Integer freePlace) {
+        this.freePlace = freePlace;
     }
 }
