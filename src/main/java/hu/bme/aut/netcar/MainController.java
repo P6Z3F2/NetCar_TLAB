@@ -144,8 +144,7 @@ public class MainController {
 		car.setSeat(seat);
 		car.setPlaceInBoot(placeInBoot);
 		car.setFreeSeat(seat);
-		int freePlace = seat + placeInBoot;
-		car.setFreePlace(freePlace);
+		car.setFreePlace(seat + placeInBoot);
 		carRepository.save(car);
 
 		return new DefaultResponse("Updated car with id: " +  id);
