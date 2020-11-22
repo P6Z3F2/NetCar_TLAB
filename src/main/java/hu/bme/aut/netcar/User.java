@@ -16,6 +16,7 @@ public class User {
 	private String name, email, password, pictureUrl;
 	private Integer credits;
 
+	private Boolean valid;
 
 	public User() {
 
@@ -61,5 +62,14 @@ public class User {
 	}
 	public void setCredits(Integer credits) {
 		this.credits = credits;
+	}
+
+
+	public Boolean getValid() {
+		return valid;
+	}
+
+	public void setValid(Boolean valid) {
+		this.valid = valid;
 	}
 }
