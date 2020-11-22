@@ -65,7 +65,7 @@ public class Car {
         this.picUrl = picUrl;
     }
 
-    public boolean hasBoot() {
+    public boolean gethasBoot() {
         return hasBoot;
     }
     public void setHasBoot(boolean hasBoot) {
