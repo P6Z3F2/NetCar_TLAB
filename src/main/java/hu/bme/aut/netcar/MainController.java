@@ -73,18 +73,6 @@ public class MainController {
 		//return new Collections.singleton("response");
 	}
 
-	@PutMapping(value = "/updateUserValidation/{id}", produces = "application/json")
-	public @ResponseBody
-	DefaultResponse updateUserValidation(@PathVariable(value = "id") Integer id,
-										 @RequestBody User param){
-		User user = userRepository.findById(id).get();
-		user.setValid(true);
-		userRepository.save(user);
-
-		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
-		//return new Collections.singleton("response");
-	}
-
 	@RequestMapping(value="/deleteUser/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
 	public @ResponseBody
 	DefaultResponse deleteUser(@PathVariable(value = "id") Integer id){
@@ -133,7 +121,8 @@ public class MainController {
 	@PutMapping(path = "/getUser/{id}/updateCar")
 	public @ResponseBody
 	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
-							  @RequestParam String model, @RequestParam String serial){
+							  @RequestParam String model,
+							  @RequestParam String serial){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
