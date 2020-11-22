@@ -21,7 +21,7 @@ public class Car {
     }
 
     boolean hasBoot;
-    Integer seat, placeInBoot, freeSeat, freePlace;
+    int seat, placeInBoot, freeSeat, freePlace;
 
 
     public Car() {
@@ -77,28 +77,28 @@ public class Car {
         this.hasBoot = hasBoot;
     }
 
-    public Integer getSeat() {
+    public int getSeat() {
         return seat;
     }
     public void setSeat(int seat) {
         this.seat = seat;
     }
 
-    public Integer getPlaceInBoot() {
+    public int getPlaceInBoot() {
         return placeInBoot;
     }
     public void setPlaceInBoot(int placeInBoot) {
         this.placeInBoot = placeInBoot;
     }
 
-    public Integer getFreeSeat() {
+    public int getFreeSeat() {
         return freeSeat;
     }
     public void setFreeSeat(int freeSeat) {
         this.freeSeat = freeSeat;
     }
 
-    public Integer getFreePlace() {
+    public int getFreePlace() {
         return freePlace;
     }
     public void setFreePlace(int freePlace) {

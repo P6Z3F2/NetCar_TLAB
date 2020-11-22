@@ -134,7 +134,7 @@ public class MainController {
 	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestParam String brand,
 							  @RequestParam String model, @RequestParam String serial,
 							  @RequestParam String picUrl, @RequestParam boolean hasBoot,
-							  @RequestParam Integer seat, @RequestParam Integer placeInBoot){
+							  @RequestParam int seat, @RequestParam int placeInBoot){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
