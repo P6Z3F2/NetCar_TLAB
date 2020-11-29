@@ -13,7 +13,7 @@ public class User {
 	@PrimaryKeyJoinColumn
 	private Car car;
 
-	private String name, email, password, pictureUrl;
+	private String username, email, password, pictureUrl;
 	private Integer credits;
 
 	private Boolean valid;
@@ -29,11 +29,11 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String name) {
+		this.username = name;
 	}
 
 	public String getEmail() {

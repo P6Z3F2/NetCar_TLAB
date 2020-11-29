@@ -1,14 +1,17 @@
 package hu.bme.aut.netcar;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+@Qualifier("user")
+@Repository
+public interface UserRepository extends CrudRepository<User, Integer> {
 
-    //@Query("SELECT u FROM User u WHERE u.name = ?1")
-    User findByName(String name);
+    User findByUsername(String Username);
+
+    //User findByName(String name);
 
     Iterable<User> findByvalidFalse();
 

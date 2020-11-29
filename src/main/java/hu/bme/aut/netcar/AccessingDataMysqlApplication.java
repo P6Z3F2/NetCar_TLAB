@@ -15,7 +15,7 @@ public class AccessingDataMysqlApplication {
 
 @RestController
 class HelloController{
-	@GetMapping("/")
+	@GetMapping("/hello")
 	public String hello() {
 		return "Hello Heroku.";
 	}
