@@ -35,6 +35,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	public User save(UserDTO user) {
 		User newUser = new User();
+		newUser.setCredits(0);
+		newUser.setEmail("kapdbea@om.com");
 		Car c = new Car();
 		c.setUser(newUser);
 		carRepository.save(c);

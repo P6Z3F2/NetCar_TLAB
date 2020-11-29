@@ -62,6 +62,7 @@ public class JwtAuthenticationController {
 			return new DefaultResponse("Username already used");
 		}
  		//return ResponseEntity.ok(userDetailsService.save(user));
+		userDetailsService.save(user);
 		return new DefaultResponse("Successful registration");
 	}
 
