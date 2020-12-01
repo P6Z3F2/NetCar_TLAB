@@ -48,17 +48,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	@Autowired
-	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("bernatadmin").password("123").roles("ADMIN");
-	}
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 		httpSecurity.csrf().disable()
 
-				.authorizeRequests().antMatchers("/login", "/register","helllo").permitAll().
+				.authorizeRequests().antMatchers("/login", "/register","/hello").permitAll().
 
 				anyRequest().authenticated().and().
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
