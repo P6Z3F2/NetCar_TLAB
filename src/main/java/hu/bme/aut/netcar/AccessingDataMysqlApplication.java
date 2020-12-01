@@ -15,7 +15,7 @@ public class AccessingDataMysqlApplication {
 }
 
 @RestController
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+
 class HelloController{
 	@GetMapping("/hello")
 	public String hello() {
