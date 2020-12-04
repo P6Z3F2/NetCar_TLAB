@@ -23,6 +23,12 @@ public class MainController {
 	public @ResponseBody Iterable<User> getAllInvalidUsers() {
 		return userDetailsService.getAllInvalidUsers();
 	}
+	
+	@GetMapping(path="/getAllValidUsers")
+   	 public @ResponseBody Iterable<User> getAllValidUsers() {
+
+        	return userDetailsService.getAllValidUsers();
+    	}
 
 	@GetMapping(path = "/getUser/{id}")
 	public  @ResponseBody  Optional<User> getUserById(@PathVariable(value = "id") Integer UserId)
