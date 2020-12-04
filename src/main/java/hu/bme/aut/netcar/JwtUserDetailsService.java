@@ -52,6 +52,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public Iterable<User> getAllInvalidUsers() {
 		return userRepository.findByvalidFalse();
 	}
+	
+	public Iterable<User> getAllValidUsers() {
+        	return userRepository.findByvalidTrue();
+    	}
 
 	public Optional<User> getUserById(Integer UserId)
 	{
