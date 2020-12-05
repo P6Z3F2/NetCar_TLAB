@@ -1,9 +1,12 @@
 package hu.bme.aut.netcar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.geo.Coord;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +24,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private CarRepository carRepository;
 
 	@Autowired
+	private ServiceRequestRepository serviceRequestRepository;
+
+	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
@@ -36,6 +42,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public User save(UserDTO user) {
 		User newUser = new User();
 		newUser.setCredits(0);
+		newUser.setNumberOfRatings(0);
+		newUser.setRating(0.0);
+		newUser.setValid(false);
 		Car c = new Car();
 		c.setUser(newUser);
 		carRepository.save(c);
@@ -52,13 +61,14 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return userRepository.findByvalidFalse();
 	}
 	
-	public Iterable<User> getAllValidUsers() {
-        	return userRepository.findByvalidTrue();
-    	}
+
 
 	public Optional<User> getUserById(Integer UserId)
 	{
 		return userRepository.findById(UserId);
+	}
+	public Iterable<User> getAllValidUsers() {
+		return userRepository.findByvalidTrue();
 	}
 
 	public User findUserByName(String username) {
@@ -134,5 +144,68 @@ public class JwtUserDetailsService implements UserDetailsService {
 		carRepository.save(car);
 
 		return new DefaultResponse("Updated car with id: " +  id);
+	}
+
+	public Iterable<ServiceRequest> getAllRequests() {
+		return serviceRequestRepository.findAll();
+	}
+
+	public Optional<ServiceRequest> getRequestById(Integer Id)
+	{
+		return serviceRequestRepository.findById(Id);
+	}
+
+	public Iterable<ServiceRequest> findRequestsByDriverID(Integer id) {
+				return serviceRequestRepository.findAllByDriverID(id);
+	}
+
+	public Iterable<ServiceRequest> findRequestsByPassengerID(Integer id) {
+		return serviceRequestRepository.findAllByPassengerID(id);
+	}
+
+	public DefaultResponse updateRequest(ServiceRequest sr)
+	{
+		Calendar c = Calendar.getInstance();
+
+		switch(sr.getsRstatus()){
+
+			case INPROGRESS:
+				User driver = userRepository.findById(sr.getDriverID()).get();
+				driver.setIsInProgress(true);
+				userRepository.save(driver);
+				sr.setStartTime(new Date(c.getTimeInMillis()));
+				serviceRequestRepository.save(sr);
+				break;
+
+			case DENIED:
+				sr.setFinishTime(new Date(c.getTimeInMillis()));
+				serviceRequestRepository.save(sr);
+				break;
+
+			case FINISHED:
+				User driver2 = userRepository.findById(sr.getDriverID()).get();
+				driver2.setIsInProgress(false);
+				userRepository.save(driver2);
+				sr.setFinishTime(new Date(c.getTimeInMillis()));
+				serviceRequestRepository.save(sr);
+				break;
+
+			default: break;
+
+		}
+		return new DefaultResponse("Successful update.");
+	}
+
+
+	public DefaultResponse addRequest(Integer driver, Integer passenger, Coord destination, Integer payment) {
+		ServiceRequest newRequest = new ServiceRequest(driver,passenger,new Coord(destination.getX(),destination.getY()),payment);
+		serviceRequestRepository.save(newRequest);
+		String a = driver.toString()+passenger.toString()+payment.toString();
+		return new DefaultResponse(a);
+	}
+
+	public DefaultResponse deleteRequests() {
+		serviceRequestRepository.deleteAll();
+		return new DefaultResponse("All requests deleted.");
 	}
 }

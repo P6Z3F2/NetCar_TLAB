@@ -1,6 +1,10 @@
 package hu.bme.aut.netcar;
 
+
+//import org.springframework.data.geo.Coord;
+
 import javax.persistence.*;
+
 
 @Entity (name = "user_entity") // This tells Hibernate to make a table out of this class
 public class User {
@@ -19,7 +23,56 @@ public class User {
 	private String username, email, password;
 	private Integer credits;
 
-	private Boolean valid;
+	private Boolean valid,visible;
+
+	private Coord location;
+
+
+	private Boolean isInProgress;
+
+	public Boolean getIsInProgress() {
+		return this.isInProgress;
+	}
+
+	public void setIsInProgress(Boolean isInProgress) {
+		this.isInProgress = isInProgress;
+	}
+
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
+	}
+
+	public Coord getLocation() {
+		return location;
+	}
+
+	public void setLocation(Coord destinationPos) {
+		this.location = destinationPos;
+	}
+
+	public Integer getNumberOfRatings() {
+		return numberOfRatings;
+	}
+
+	public void setNumberOfRatings(Integer numberOfRatings) {
+		this.numberOfRatings = numberOfRatings;
+	}
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	private Integer numberOfRatings;
+	private Double rating;
+
 
 	public User() {
 

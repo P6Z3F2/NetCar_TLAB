@@ -1,6 +1,7 @@
 package hu.bme.aut.netcar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.geo.Coord;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 @CrossOrigin
 @RequestMapping
 public class MainController {
+
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 
@@ -21,14 +23,16 @@ public class MainController {
 
 	@GetMapping(path="/getAllInvalidUsers")
 	public @ResponseBody Iterable<User> getAllInvalidUsers() {
-		return userDetailsService.getAllInvalidUsers();
-	}
-	
-	@GetMapping(path="/getAllValidUsers")
-   	 public @ResponseBody Iterable<User> getAllValidUsers() {
 
-        	return userDetailsService.getAllValidUsers();
-    	}
+	    return userDetailsService.getAllInvalidUsers();
+	}
+
+
+	@GetMapping(path="/getAllValidUsers")
+	public @ResponseBody Iterable<User> getAllValidUsers() {
+
+		return userDetailsService.getAllValidUsers();
+	}
 
 	@GetMapping(path = "/getUser/{id}")
 	public  @ResponseBody  Optional<User> getUserById(@PathVariable(value = "id") Integer UserId)
@@ -100,4 +104,63 @@ public class MainController {
 	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
 		return  updateCar(id,null,null,null, null, false, null, null);
 	}
+
+	// REQUEST --------------------------------------------------------------
+
+
+	@GetMapping(path = "/getAllRequests")
+	public @ResponseBody Iterable<ServiceRequest> getAllRequests()
+	{
+		return userDetailsService.getAllRequests();
+	}
+
+	@GetMapping(path = "/getRequest/{id}")
+	public @ResponseBody Optional<ServiceRequest> getRequest(@PathVariable(value = "id")Integer id)
+	{
+		return userDetailsService.getRequestById(id);
+	}
+
+	@GetMapping(path = "/getRequestsByDriver/{id}")
+	public @ResponseBody Iterable<ServiceRequest> getRequestsByDriver(@PathVariable(value = "id")Integer id)
+	{
+		return userDetailsService.findRequestsByDriverID(id);
+	}
+
+	@GetMapping(path = "/getRequestsByPassenger/{id}")
+	public @ResponseBody Iterable<ServiceRequest> getRequestsByPassenger(@PathVariable(value = "id")Integer id)
+	{
+		return userDetailsService.findRequestsByPassengerID(id);
+	}
+
+	@PutMapping(path = "/updateRequest")
+	public @ResponseBody  DefaultResponse updateRequest(ServiceRequest newer)
+	{
+		return userDetailsService.updateRequest(newer);
+	}
+
+	@PostMapping(path = "/addRequest")
+
+
+	//public @ResponseBody  DefaultResponse addRequest(Integer driver, Integer passenger, Coord destination, Integer payment)
+	public @ResponseBody  DefaultResponse addRequest(@RequestBody ServiceRequest sr)
+	{
+		return userDetailsService.addRequest(sr.getDriverID(), sr.getPassengerID(),sr.getDestinationPos(),sr.getPayment());
+	}
+
+ 	@PostMapping(path = "/deleteRequests")
+	public @ResponseBody DefaultResponse deleteRequests(){
+		return userDetailsService.deleteRequests();
+	}
+
+
+
+
+
+
+
+
+
 }
+
+
+
