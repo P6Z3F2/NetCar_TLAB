@@ -36,7 +36,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public User save(UserDTO user) {
 		User newUser = new User();
 		newUser.setCredits(0);
-		newUser.setValid(false);
 		Car c = new Car();
 		c.setUser(newUser);
 		carRepository.save(c);
@@ -74,6 +73,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		user.setPassword(param.getPassword());
 		user.setPictureUrl(param.getPictureUrl());
 		user.setCredits(param.getCredits());
+		user.serValid(param.getValid());
 		userRepository.save(user);
 
 		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
