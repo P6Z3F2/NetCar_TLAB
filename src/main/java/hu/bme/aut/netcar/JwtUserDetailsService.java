@@ -71,6 +71,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return userRepository.findByvalidTrue();
 	}
 
+	public Iterable<User> getAllValidNull(){
+		return userRepository.findByValidIsNull();
+	}
+
 	public User findUserByName(String username) {
 
 		return userRepository.findByUsername(username);

@@ -27,6 +27,12 @@ public class MainController {
 	    return userDetailsService.getAllInvalidUsers();
 	}
 
+	@GetMapping(path="/getAllValidNull")
+	public @ResponseBody Iterable<User> getAllValidNull() {
+
+		return userDetailsService.getAllValidNull();
+	}
+
 
 	@GetMapping(path="/getAllValidUsers")
 	public @ResponseBody Iterable<User> getAllValidUsers() {
