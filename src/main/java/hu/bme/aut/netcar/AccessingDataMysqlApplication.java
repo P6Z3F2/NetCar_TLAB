@@ -25,16 +25,16 @@ class HelloController{
 
 	@GetMapping("/hello")
 	public String hello() {
-		serviceRequestRepository.save(new ServiceRequest());
+		//serviceRequestRepository.save(new ServiceRequest());
 		return "Hello Heroku.";
 	}
 
-	@GetMapping("/pont")
+	/*@GetMapping("/pont")
 	public @ResponseBody ServiceRequest pont(){
 		ServiceRequest asd = new ServiceRequest();
 		serviceRequestRepository.save(asd);
 		return asd;
-	}
+	}*/
 
 
 }
