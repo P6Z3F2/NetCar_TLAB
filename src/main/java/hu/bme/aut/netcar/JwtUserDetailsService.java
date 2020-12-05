@@ -80,7 +80,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		User user = userRepository.findById(id).get();
 		user.setEmail(param.getEmail());
 		user.setUsername(param.getUsername());
-		user.setPassword(bcryptEncoder.encode(param.getPassword()));
+		user.setPassword(param.getPassword());
 		user.setPictureUrl(param.getPictureUrl());
 		user.setCredits(param.getCredits());
 		user.setValid(param.getValid());
