@@ -46,6 +46,12 @@ public class MainController {
 		return userDetailsService.getUserById(UserId);
 	}
 
+	@GetMapping(path = "/getUsername/{id}")
+	public  @ResponseBody  String getUsernameById(@PathVariable(value = "id") Integer UserId)
+	{
+		return userDetailsService.getUsernameById(UserId);
+	}
+
 	@GetMapping(path = "/getUserPicture/{id}")
 	public  @ResponseBody  String getUserPicture(@PathVariable(value = "id") Integer UserId)
 	{

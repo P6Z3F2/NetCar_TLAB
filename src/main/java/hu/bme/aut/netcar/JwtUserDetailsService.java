@@ -217,4 +217,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 		User user = userRepository.findById(userId).get();
 		return user.getPicture();
 	}
+
+	public String getUsernameById(Integer userId) {
+		User user = userRepository.findById(userId).get();
+		return user.getUsername();
+	}
 }

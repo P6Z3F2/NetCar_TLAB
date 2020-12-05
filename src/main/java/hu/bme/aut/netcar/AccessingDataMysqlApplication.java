@@ -29,12 +29,12 @@ class HelloController{
 		return "Hello Heroku.";
 	}
 
-	/*@GetMapping("/pont")
+	@GetMapping("/pont")
 	public @ResponseBody ServiceRequest pont(){
 		ServiceRequest asd = new ServiceRequest();
 		serviceRequestRepository.save(asd);
 		return asd;
-	}*/
+	}
 
 
 }
