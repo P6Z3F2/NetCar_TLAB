@@ -13,7 +13,10 @@ public class User {
 	@PrimaryKeyJoinColumn
 	private Car car;
 
-	private String username, email, password, pictureUrl;
+	@Column(columnDefinition="TEXT")
+	private String pictureUrl;
+
+	private String username, email, password;
 	private Integer credits;
 
 	private Boolean valid;
