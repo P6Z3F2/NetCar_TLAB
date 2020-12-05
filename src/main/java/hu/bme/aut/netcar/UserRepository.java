@@ -16,4 +16,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     Iterable<User> findByvalidFalse();
     Iterable<User> findByvalidTrue();
 
+
 }

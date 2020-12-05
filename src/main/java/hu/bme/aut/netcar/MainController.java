@@ -40,6 +40,12 @@ public class MainController {
 		return userDetailsService.getUserById(UserId);
 	}
 
+	@GetMapping(path = "/getUserPicture/{id}")
+	public  @ResponseBody  String getUserPicture(@PathVariable(value = "id") Integer UserId)
+	{
+		return userDetailsService.getUserPictureById(UserId);
+	}
+
 	@GetMapping(path = "/getUserByName/{username}")
 	public @ResponseBody User findUserByName(@PathVariable String username) {
 

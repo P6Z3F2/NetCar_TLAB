@@ -81,7 +81,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		user.setEmail(param.getEmail());
 		user.setUsername(param.getUsername());
 		user.setPassword(param.getPassword());
-		user.setPictureUrl(param.getPictureUrl());
+		user.setPicture(param.getPicture());
 		user.setCredits(param.getCredits());
 		user.setValid(param.getValid());
 		userRepository.save(user);
@@ -207,5 +207,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public DefaultResponse deleteRequests() {
 		serviceRequestRepository.deleteAll();
 		return new DefaultResponse("All requests deleted.");
+	}
+
+	public String getUserPictureById(Integer userId) {
+		User user = userRepository.findById(userId).get();
+		return user.getPicture();
 	}
 }

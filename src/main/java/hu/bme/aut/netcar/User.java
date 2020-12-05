@@ -18,7 +18,7 @@ public class User {
 	private Car car;
 
 	@Column(columnDefinition="TEXT")
-	private String pictureUrl;
+	private String picture;
 
 	private String username, email, password;
 	private Integer credits;
@@ -106,11 +106,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPictureUrl() {
-		return pictureUrl;
+	public String getPicture() {
+		return picture;
 	}
-	public void setPictureUrl(String pictureUrl) {
-		this.pictureUrl = pictureUrl;
+	public void setPicture(String pictureUrl) {
+		this.picture = pictureUrl;
 	}
 
 	public Integer getCredits() {
