@@ -166,6 +166,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public DefaultResponse updateRequest(ServiceRequest sr)
 	{
 		ServiceRequest newer = serviceRequestRepository.findById(sr.getSrid()).get();
+		newer.setsRstatus(sr.getsRstatus());
 
 		User passenger = userRepository.findById(newer.getPassengerID()).get();
 		User driver = userRepository.findById(newer.getDriverID()).get();
@@ -174,7 +175,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 		Calendar c = Calendar.getInstance();
 
-		switch(sr.getsRstatus()){
+		switch(newer.getsRstatus()){
 			case INPROGRESS:
 				driver.setIsInProgress(true);
 				userRepository.save(driver);
@@ -190,12 +191,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 				}
 
 				newer.setStartTime(sdf.format(new Date(c.getTimeInMillis())));
-				serviceRequestRepository.save(newer);
 				break;
 
 			case DENIED:
 				newer.setFinishTime(sdf.format(new Date(c.getTimeInMillis())));
-				serviceRequestRepository.save(newer);
 				break;
 
 			case FINISHED:
@@ -208,12 +207,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 				userRepository.save(passenger);
 
 				newer.setFinishTime(sdf.format(new Date(c.getTimeInMillis())));
-				serviceRequestRepository.save(newer);
 				break;
 
 			default: break;
 
 		}
+		serviceRequestRepository.save(newer);
 		return new DefaultResponse("Successful update.");
 	}
 
