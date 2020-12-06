@@ -128,11 +128,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return carRepository.findById(Id);
 	}
 
-	public @ResponseBody
-	DefaultResponse updateCar(Integer id,  String brand,
-							   String model, String serial,
-							   String pic, Boolean hasBoot,
-							 Integer seats, Integer placeInBoot){
+	public DefaultResponse updateCar(Integer id,  String brand, String model, String serial,
+					 String pic, Boolean hasBoot, Integer seats, Integer placeInBoot){
 		Car car = carRepository.findById(id).get();
 		car.setBrand(brand);
 		car.setModel(model);
