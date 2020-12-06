@@ -150,7 +150,7 @@ public class MainController {
 	}
 
 	@PutMapping(path = "/updateRequest")
-	public @ResponseBody  DefaultResponse updateRequest(ServiceRequest newer)
+	public @ResponseBody  DefaultResponse updateRequest(@RequestBody ServiceRequest newer)
 	{
 		return userDetailsService.updateRequest(newer);
 	}
