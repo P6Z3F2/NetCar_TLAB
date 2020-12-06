@@ -105,6 +105,7 @@ public class MainController {
 	{
 		return userDetailsService.getCarById(Id);
 	}
+	/*
 	//UPDATE CAR
 	@PutMapping(path = "/getUser/{id}/updateCar")
 	public @ResponseBody
@@ -113,13 +114,20 @@ public class MainController {
 							  @RequestParam String pic, @RequestParam Boolean hasBoot,
 							  @RequestParam Integer seats, @RequestParam Integer placeInBoot){
 		return userDetailsService.updateCar(id,brand,model,serial,pic,hasBoot,seats,placeInBoot);
+	}*/
+
+	@PutMapping(path = "/getUser/{id}/updateCar")
+	public @ResponseBody
+	DefaultResponse updateCar(@PathVariable(value = "id") Integer id, @RequestBody Car car)
+	{
+		return userDetailsService.updateCar(id, car);
 	}
 
 	//DELETE CAR
 	@PutMapping(path = "/getUser/{id}/deleteCar")
 	public @ResponseBody
-	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id){
-		return  updateCar(id,null,null,null, null, false, null, null);
+	DefaultResponse deleteCar(@PathVariable(value = "id") Integer id) {
+		return  userDetailsService.deleteCar(id);
 	}
 
 	// REQUEST --------------------------------------------------------------

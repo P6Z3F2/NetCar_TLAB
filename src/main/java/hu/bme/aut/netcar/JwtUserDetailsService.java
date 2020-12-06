@@ -128,19 +128,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return carRepository.findById(Id);
 	}
 
-	public DefaultResponse updateCar(Integer id,  String brand, String model, String serial,
-					 String pic, Boolean hasBoot, Integer seats, Integer placeInBoot){
-		Car car = carRepository.findById(id).get();
-		car.setBrand(brand);
-		car.setModel(model);
-		car.setSerial(serial);
-		car.setPic(pic);
-		car.setHasBoot(hasBoot);
-		car.setSeats(seats);
-		car.setPlaceInBoot(placeInBoot);
-		car.setFreeSeats(seats);
-		car.setFreePlace(seats + placeInBoot);
-		carRepository.save(car);
+	public DefaultResponse updateCar(Integer id, Car car){
+		Car newCar = carRepository.findById(id).get();
+		newCar.setBrand(newCar.getBrand());
+		newCar.setModel(newCar.getModel());
+		newCar.setSerial(newCar.getSerial());
+		newCar.setPic(newCar.getPic());
+		newCar.setHasBoot(newCar.getHasBoot());
+		newCar.setSeats(newCar.getSeats());
+		newCar.setPlaceInBoot(newCar.getPlaceInBoot());
+		newCar.setFreeSeats(newCar.getSeats());
+		newCar.setFreePlace(newCar.getSeats() + newCar.getPlaceInBoot());
+		carRepository.save(newCar);
 
 		return new DefaultResponse("Updated car with id: " +  id);
 	}
@@ -235,5 +234,14 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public String getUsernameById(Integer userId) {
 		User user = userRepository.findById(userId).get();
 		return user.getUsername();
+	}
+
+	public DefaultResponse deleteCar(Integer id) {
+		User user = userRepository.findById(id).get();
+		Car c = new Car();
+		c.setUser(user);
+		c.setId(id);
+		carRepository.save(c);
+		return new DefaultResponse("Car has been deleted.");
 	}
 }
