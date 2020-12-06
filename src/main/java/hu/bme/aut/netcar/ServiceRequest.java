@@ -14,20 +14,20 @@ public class ServiceRequest {
     private Integer SRID;
 
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date publicationTime) {
+    public void setStartTime(String publicationTime) {
         this.startTime = publicationTime;
     }
 
-    @Temporal(TemporalType.TIME)
-    private Date startTime;
+
+    private String startTime;
 
 
 
-    private Date finishTime;
+    private String finishTime;
 
     private Integer payment;
     private Integer driverID;
@@ -55,7 +55,7 @@ public class ServiceRequest {
         this.payment = 65545454;
         this.sRstatus = SRstatus.PENDING;
         Calendar c = Calendar.getInstance();
-        this.startTime = new Date(c.getTimeInMillis());
+        this.startTime = new Date(c.getTimeInMillis()).toString();
     }
 
     public ServiceRequest(Integer driver, Integer passenger, Coord destination, Integer payment){
@@ -66,7 +66,7 @@ public class ServiceRequest {
         this.payment = payment;
 
             Calendar c = Calendar.getInstance();
-            this.startTime = new Date(c.getTimeInMillis());
+            this.startTime = new Date(c.getTimeInMillis()).toString();
 
 
     }
@@ -111,11 +111,11 @@ public class ServiceRequest {
         this.SRID = SRID;
     }
 
-    public Date getFinishTime() {
+    public String getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 

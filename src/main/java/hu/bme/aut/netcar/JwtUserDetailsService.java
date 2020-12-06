@@ -177,12 +177,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 				User driver = userRepository.findById(sr.getDriverID()).get();
 				driver.setIsInProgress(true);
 				userRepository.save(driver);
-				sr.setStartTime(new Date(c.getTimeInMillis()));
+				sr.setStartTime(new Date(c.getTimeInMillis()).toString());
 				serviceRequestRepository.save(sr);
 				break;
 
 			case DENIED:
-				sr.setFinishTime(new Date(c.getTimeInMillis()));
+				sr.setFinishTime(new Date(c.getTimeInMillis()).toString());
 				serviceRequestRepository.save(sr);
 				break;
 
@@ -190,7 +190,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 				User driver2 = userRepository.findById(sr.getDriverID()).get();
 				driver2.setIsInProgress(false);
 				userRepository.save(driver2);
-				sr.setFinishTime(new Date(c.getTimeInMillis()));
+				sr.setFinishTime(new Date(c.getTimeInMillis()).toString());
 				serviceRequestRepository.save(sr);
 				break;
 
