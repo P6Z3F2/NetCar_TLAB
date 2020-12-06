@@ -167,29 +167,30 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	public DefaultResponse updateRequest(ServiceRequest sr)
 	{
+		ServiceRequest newer = serviceRequestRepository.findById(sr.getSRID()).get();
 		Calendar c = Calendar.getInstance();
 
-		switch(sr.getsRstatus()){
+		switch(newer.getsRstatus()){
 
 			case INPROGRESS:
-				User driver = userRepository.findById(sr.getDriverID()).get();
+				User driver = userRepository.findById(newer.getDriverID()).get();
 				driver.setIsInProgress(true);
 				userRepository.save(driver);
-				sr.setStartTime(new Date(c.getTimeInMillis()).toString());
-				serviceRequestRepository.save(sr);
+				newer.setStartTime(new Date(c.getTimeInMillis()).toString());
+				serviceRequestRepository.save(newer);
 				break;
 
 			case DENIED:
-				sr.setFinishTime(new Date(c.getTimeInMillis()).toString());
-				serviceRequestRepository.save(sr);
+				newer.setFinishTime(new Date(c.getTimeInMillis()).toString());
+				serviceRequestRepository.save(newer);
 				break;
 
 			case FINISHED:
-				User driver2 = userRepository.findById(sr.getDriverID()).get();
+				User driver2 = userRepository.findById(newer.getDriverID()).get();
 				driver2.setIsInProgress(false);
 				userRepository.save(driver2);
-				sr.setFinishTime(new Date(c.getTimeInMillis()).toString());
-				serviceRequestRepository.save(sr);
+				newer.setFinishTime(new Date(c.getTimeInMillis()).toString());
+				serviceRequestRepository.save(newer);
 				break;
 
 			default: break;
