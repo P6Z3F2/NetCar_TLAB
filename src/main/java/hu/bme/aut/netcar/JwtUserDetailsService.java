@@ -85,6 +85,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		user.setValid(param.getValid());
 		user.setRatings(param.getRatings());
 		user.setVisible(param.getVisible());
+		user.setLocation(param.getLocation());
 		userRepository.save(user);
 
 		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");
