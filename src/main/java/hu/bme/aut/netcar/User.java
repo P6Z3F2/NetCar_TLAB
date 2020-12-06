@@ -4,6 +4,8 @@ package hu.bme.aut.netcar;
 //import org.springframework.data.geo.Coord;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity (name = "user_entity") // This tells Hibernate to make a table out of this class
@@ -27,6 +29,8 @@ public class User {
 
 	private Coord location;
 
+	@ElementCollection
+	private List<Integer> ratings = new ArrayList<>();
 
 	private Boolean isInProgress;
 
@@ -53,26 +57,6 @@ public class User {
 	public void setLocation(Coord destinationPos) {
 		this.location = destinationPos;
 	}
-
-	public Integer getNumberOfRatings() {
-		return numberOfRatings;
-	}
-
-	public void setNumberOfRatings(Integer numberOfRatings) {
-		this.numberOfRatings = numberOfRatings;
-	}
-
-	public Double getRating() {
-		return rating;
-	}
-
-	public void setRating(Double rating) {
-		this.rating = rating;
-	}
-
-	private Integer numberOfRatings;
-	private Double rating;
-
 
 	public User() {
 
@@ -127,5 +111,13 @@ public class User {
 
 	public void setValid(Boolean valid) {
 		this.valid = valid;
+	}
+
+	public List<Integer> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Integer> ratings) {
+		this.ratings = ratings;
 	}
 }

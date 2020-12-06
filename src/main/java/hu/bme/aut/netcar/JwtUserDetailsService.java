@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.geo.Coord;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,8 +41,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public User save(UserDTO user) {
 		User newUser = new User();
 		newUser.setCredits(0);
-		newUser.setNumberOfRatings(0);
-		newUser.setRating(0.0);
 		newUser.setValid(false);
 		Car c = new Car();
 		c.setUser(newUser);
@@ -88,6 +85,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		user.setPicture(param.getPicture());
 		user.setCredits(param.getCredits());
 		user.setValid(param.getValid());
+		user.setRatings(param.getRatings());
 		userRepository.save(user);
 
 		return new DefaultResponse("USER_SUCCESSFUL_UPDATED");

@@ -1,7 +1,6 @@
 package hu.bme.aut.netcar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.geo.Coord;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -169,14 +168,6 @@ public class MainController {
 	public @ResponseBody DefaultResponse deleteRequests(){
 		return userDetailsService.deleteRequests();
 	}
-
-
-
-
-
-
-
-
 
 }
 
