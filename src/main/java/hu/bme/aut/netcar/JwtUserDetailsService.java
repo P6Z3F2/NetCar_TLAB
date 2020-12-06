@@ -130,15 +130,15 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	public DefaultResponse updateCar(Integer id, Car car){
 		Car newCar = carRepository.findById(id).get();
-		newCar.setBrand(newCar.getBrand());
-		newCar.setModel(newCar.getModel());
-		newCar.setSerial(newCar.getSerial());
-		newCar.setPic(newCar.getPic());
-		newCar.setHasBoot(newCar.getHasBoot());
-		newCar.setSeats(newCar.getSeats());
-		newCar.setPlaceInBoot(newCar.getPlaceInBoot());
-		newCar.setFreeSeats(newCar.getSeats());
-		newCar.setFreePlace(newCar.getSeats() + newCar.getPlaceInBoot());
+		newCar.setBrand(car.getBrand());
+		newCar.setModel(car.getModel());
+		newCar.setSerial(car.getSerial());
+		newCar.setPic(car.getPic());
+		newCar.setHasBoot(car.getHasBoot());
+		newCar.setSeats(car.getSeats());
+		newCar.setPlaceInBoot(car.getPlaceInBoot());
+		newCar.setFreeSeats(car.getSeats());
+		newCar.setFreePlace(car.getSeats() + car.getPlaceInBoot());
 		carRepository.save(newCar);
 
 		return new DefaultResponse("Updated car with id: " +  id);
