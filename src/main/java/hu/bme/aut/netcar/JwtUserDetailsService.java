@@ -1,9 +1,7 @@
 package hu.bme.aut.netcar;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -168,28 +166,48 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public DefaultResponse updateRequest(ServiceRequest sr)
 	{
 		ServiceRequest newer = serviceRequestRepository.findById(sr.getSRID()).get();
+
+		User passenger = userRepository.findById(newer.getPassengerID()).get();
+		User driver = userRepository.findById(newer.getDriverID()).get();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+
 		Calendar c = Calendar.getInstance();
 
 		switch(newer.getsRstatus()){
-
 			case INPROGRESS:
-				User driver = userRepository.findById(newer.getDriverID()).get();
 				driver.setIsInProgress(true);
 				userRepository.save(driver);
-				newer.setStartTime(new Date(c.getTimeInMillis()).toString());
+
+				passenger.setIsInProgress(true);
+				userRepository.save(passenger);
+
+				Iterable<ServiceRequest> requests = serviceRequestRepository.findAllByDriverID(newer.getDriverID());
+				for (ServiceRequest r : requests) {
+					if (!r.getSRID().equals(newer.getSRID()) && r.getsRstatus() == SRstatus.PENDING) {
+						r.setsRstatus(SRstatus.DENIED);
+					}
+				}
+
+				newer.setStartTime(sdf.format(new Date(c.getTimeInMillis())));
 				serviceRequestRepository.save(newer);
 				break;
 
 			case DENIED:
-				newer.setFinishTime(new Date(c.getTimeInMillis()).toString());
+				newer.setFinishTime(sdf.format(new Date(c.getTimeInMillis())));
 				serviceRequestRepository.save(newer);
 				break;
 
 			case FINISHED:
-				User driver2 = userRepository.findById(newer.getDriverID()).get();
-				driver2.setIsInProgress(false);
-				userRepository.save(driver2);
-				newer.setFinishTime(new Date(c.getTimeInMillis()).toString());
+				driver.setIsInProgress(false);
+				driver.setCredits(driver.getCredits() + newer.getPayment());
+				userRepository.save(driver);
+
+				passenger.setIsInProgress(false);
+				passenger.setCredits(passenger.getCredits() - newer.getPayment());
+				userRepository.save(passenger);
+
+				newer.setFinishTime(sdf.format(new Date(c.getTimeInMillis())));
 				serviceRequestRepository.save(newer);
 				break;
 
@@ -203,8 +221,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public DefaultResponse addRequest(Integer driver, Integer passenger, Coord destination, Integer payment) {
 		ServiceRequest newRequest = new ServiceRequest(driver,passenger,new Coord(destination.getX(),destination.getY()),payment);
 		serviceRequestRepository.save(newRequest);
-		String a = driver.toString()+passenger.toString()+payment.toString();
-		return new DefaultResponse(a);
+		return new DefaultResponse("Creating request was successful.");
 	}
 
 	public DefaultResponse deleteRequests() {
