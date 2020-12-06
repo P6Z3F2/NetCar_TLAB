@@ -174,7 +174,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 		Calendar c = Calendar.getInstance();
 
-		switch(newer.getsRstatus()){
+		switch(sr.getsRstatus()){
 			case INPROGRESS:
 				driver.setIsInProgress(true);
 				userRepository.save(driver);
