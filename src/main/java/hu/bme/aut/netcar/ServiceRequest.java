@@ -11,7 +11,7 @@ public class ServiceRequest {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer SRID;
+    private Integer srid;
 
 
     public String getStartTime() {
@@ -103,12 +103,12 @@ public class ServiceRequest {
         this.payment = payment;
     }
 
-    public Integer getSRID() {
-        return SRID;
+    public Integer getSrid() {
+        return srid;
     }
 
-    public void setSRID(Integer SRID) {
-        this.SRID = SRID;
+    public void setSrid(Integer SRID) {
+        this.srid = SRID;
     }
 
     public String getFinishTime() {

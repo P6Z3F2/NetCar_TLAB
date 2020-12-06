@@ -165,7 +165,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	public DefaultResponse updateRequest(ServiceRequest sr)
 	{
-		ServiceRequest newer = serviceRequestRepository.findById(sr.getSRID()).get();
+		ServiceRequest newer = serviceRequestRepository.findById(sr.getSrid()).get();
 
 		User passenger = userRepository.findById(newer.getPassengerID()).get();
 		User driver = userRepository.findById(newer.getDriverID()).get();
@@ -184,7 +184,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 				Iterable<ServiceRequest> requests = serviceRequestRepository.findAllByDriverID(newer.getDriverID());
 				for (ServiceRequest r : requests) {
-					if (!r.getSRID().equals(newer.getSRID()) && r.getsRstatus() == SRstatus.PENDING) {
+					if (!r.getSrid().equals(newer.getSrid()) && r.getsRstatus() == SRstatus.PENDING) {
 						r.setsRstatus(SRstatus.DENIED);
 					}
 				}
