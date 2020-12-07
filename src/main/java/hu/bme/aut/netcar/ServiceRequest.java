@@ -3,6 +3,7 @@ package hu.bme.aut.netcar;
 //import org.springframework.data.geo.Coord;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,9 +25,6 @@ public class ServiceRequest {
 
 
     private String startTime;
-
-
-
     private String finishTime;
 
     private Integer payment;
@@ -64,11 +62,10 @@ public class ServiceRequest {
         this.destinationPos = destination;
         this.sRstatus = SRstatus.PENDING;
         this.payment = payment;
-
-            Calendar c = Calendar.getInstance();
-            this.startTime = new Date(c.getTimeInMillis()).toString();
-
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        Calendar c = Calendar.getInstance();
+        this.startTime = sdf.format(new Date(c.getTimeInMillis()));
+        this.finishTime = "";
     }
 
     public Integer getDriverID() {
