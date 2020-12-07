@@ -244,4 +244,22 @@ public class JwtUserDetailsService implements UserDetailsService {
 		carRepository.save(c);
 		return new DefaultResponse("Car has been deleted.");
 	}
+
+	public Optional<ServiceRequest> findActiveRequest(Integer id) {
+		Iterable<ServiceRequest> srD = serviceRequestRepository.findAllByDriverID(id);
+		for (ServiceRequest sr : srD) {
+			if (sr.getsRstatus() == SRstatus.INPROGRESS) {
+				return serviceRequestRepository.findById(sr.getSrid());
+			}
+		}
+
+		Iterable<ServiceRequest> srP = serviceRequestRepository.findAllByPassengerID(id);
+		for (ServiceRequest sr : srP) {
+			if (sr.getsRstatus() == SRstatus.INPROGRESS) {
+				return serviceRequestRepository.findById(sr.getSrid());
+			}
+		}
+
+		return Optional.empty();
+	}
 }

@@ -157,6 +157,12 @@ public class MainController {
 		return userDetailsService.findRequestsByPassengerID(id);
 	}
 
+	@GetMapping(path = "/getActiveRequest/{id}")
+	public @ResponseBody Optional<ServiceRequest> getActiveRequest(@PathVariable(value = "id")Integer id)
+	{
+		return userDetailsService.findActiveRequest(id);
+	}
+
 	@PutMapping(path = "/updateRequest")
 	public @ResponseBody  DefaultResponse updateRequest(@RequestBody ServiceRequest newer)
 	{
